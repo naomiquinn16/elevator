@@ -152,22 +152,21 @@ export class ElevatorService {
       this.arrived$.next(this.currentFloor$.value);
     }
 
-    this.speed$.subscribe((speed) => {
-      console.log(speed)
+    this.speed$.subscribe((speed: ElevatorSpeed) => {
       switch (speed) {
-        case 0:
+        case ElevatorSpeed.NORMAL:
           setTimeout(() => {
             this.doorStatus$.next(ElevatorDoor.CLOSED);
             this.checkCalls();
           }, 4000);
           break;
-        case 1:
+        case ElevatorSpeed.SLOWDOWN:
           setTimeout(() => {
             this.doorStatus$.next(ElevatorDoor.CLOSED);
             this.checkCalls();
           }, 10000);
           break;
-        case 2:
+        case ElevatorSpeed.SPEEDUP:
           setTimeout(() => {
             this.doorStatus$.next(ElevatorDoor.CLOSED);
             this.checkCalls();

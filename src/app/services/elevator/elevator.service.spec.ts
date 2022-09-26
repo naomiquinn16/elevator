@@ -144,9 +144,9 @@ describe('ElevatorService', () => {
 
 			expect(service.pendingRequests).toEqual(
 				[
-					{ callOrigin: ElevatorCallOrigin.CONTROLLER, floor: 3 },
 					{ callOrigin: ElevatorCallOrigin.CONTROLLER, floor: 4 },
-					{ callOrigin: ElevatorCallOrigin.CONTROLLER, floor: 4 }
+					{ callOrigin: ElevatorCallOrigin.CONTROLLER, floor: 3 },
+					{ callOrigin: ElevatorCallOrigin.FLOOR, floor: 4 }
 				]
 			);
 		});

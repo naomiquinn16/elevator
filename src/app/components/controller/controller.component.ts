@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ElevatorDirection, ElevatorDoor, ElevatorState } from 'src/app/enums/elevator.enum';
+import { ElevatorDirection, ElevatorDoor, ElevatorSpeed, ElevatorState } from 'src/app/enums/elevator.enum';
 import { ElevatorService } from 'src/app/services/elevator/elevator.service';
 import { MusicService } from 'src/app/services/music/music.service';
 
@@ -24,15 +24,17 @@ export class ControllerComponent {
 		}
 	}
 
-  stallElevator() {
+  openDoors() {
     if(this.elevatorService.elevatorStatus$.value === ElevatorState.STOPPED) {
-      console.log('hi')
-      //abort the original goTo, reopen doors, close them, validate req with the remaining pending reqs\
-      setTimeout(() => {
-        this.elevatorService.doorStatus$.next(ElevatorDoor.OPENED);
-        this.elevatorService.doorStatus$.next(ElevatorDoor.CLOSED);
-        this.elevatorService.validateRequests();
-      }, 5000);
+      this.elevatorService.doorStatus$.next(ElevatorDoor.OPENED);
+      this.elevatorService.speed$.next(ElevatorSpeed.SLOWDOWN);
+    }
+  }
+
+  closeDoors() {
+    if(this.elevatorService.elevatorStatus$.value === ElevatorState.STOPPED) {
+      this.elevatorService.doorStatus$.next(ElevatorDoor.CLOSED);
+      this.elevatorService.speed$.next(ElevatorSpeed.SPEEDUP);
     }
   }
 

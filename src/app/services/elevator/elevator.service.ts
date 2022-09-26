@@ -10,6 +10,7 @@ import {
   ElevatorCallOrigin,
   ElevatorDirection,
   ElevatorDoor,
+  ElevatorSpeed,
   ElevatorState,
 } from '../../enums/elevator.enum';
 import { IElevatorCall } from '../../interfaces/elevator.interface';
@@ -28,6 +29,8 @@ export class ElevatorService {
   public elevatorControllerCall$: Subject<number> = new Subject<number>();
   public individualFloorCall$: Subject<number> = new Subject<number>();
   public arrived$: Subject<number> = new Subject<number>();
+  public speed$: BehaviorSubject<ElevatorSpeed> =
+    new BehaviorSubject<ElevatorSpeed>(0);
   public maximumPendingRequests: Number = 5;
   public pendingRequests: Array<IElevatorCall> = [];
   public doorStatus$: BehaviorSubject<ElevatorDoor> =
@@ -64,7 +67,6 @@ export class ElevatorService {
 
     this.elevatorStatus$.subscribe((state: ElevatorState) => {
       if (state === 2) {
-        console.log(state);
         this.acontroller.abort();
       }
     });
@@ -107,7 +109,7 @@ export class ElevatorService {
 
     if (this.pendingRequests.length && !this.isElevatorPaused()) {
       this.goToFloor(this.pendingRequests[0].floor, this.signal);
-    } 
+    }
     // else if (this.currentFloor$.value !== 1) {
     //   this.goToFloor(1, this.signal);
     // }
@@ -122,30 +124,35 @@ export class ElevatorService {
   }
 
   public async goToFloor(finalFloor: number, signal: any): Promise<void> {
-	this.signal.addEventListener( 'abort', () => { // 6
-        const error = new DOMException( 'Calculation aborted by the user', 'AbortError' );});
-		
-      this.elevatorStatus$.next(ElevatorState.MOVING);
-      finalFloor > this.currentFloor$.value
-        ? this.movementDirection$.next(ElevatorDirection.UP)
-        : this.movementDirection$.next(ElevatorDirection.DOWN);
-      const elevatorIsAscending: boolean =
-        this.movementDirection$.value === ElevatorDirection.UP;
-      const floorDifference: number = elevatorIsAscending
-        ? finalFloor - this.currentFloor$.value
-        : this.currentFloor$.value - finalFloor;
+    this.signal.addEventListener('abort', () => {
+      // 6
+      const error = new DOMException(
+        'Calculation aborted by the user',
+        'AbortError'
+      );
+    });
 
-      for (let i = 0; i < floorDifference; i++) {
-        this.currentFloor$.next(
-          elevatorIsAscending
-            ? this.currentFloor$.value + 1
-            : this.currentFloor$.value - 1
-        );
-        await new Promise<void>((res: Function, _: Function) => {
-            setTimeout(res, 2000);
-        });
-      }
-	  this.reachFloor(); 	
+    this.elevatorStatus$.next(ElevatorState.MOVING);
+    finalFloor > this.currentFloor$.value
+      ? this.movementDirection$.next(ElevatorDirection.UP)
+      : this.movementDirection$.next(ElevatorDirection.DOWN);
+    const elevatorIsAscending: boolean =
+      this.movementDirection$.value === ElevatorDirection.UP;
+    const floorDifference: number = elevatorIsAscending
+      ? finalFloor - this.currentFloor$.value
+      : this.currentFloor$.value - finalFloor;
+
+    for (let i = 0; i < floorDifference; i++) {
+      this.currentFloor$.next(
+        elevatorIsAscending
+          ? this.currentFloor$.value + 1
+          : this.currentFloor$.value - 1
+      );
+      await new Promise<void>((res: Function, _: Function) => {
+        setTimeout(res, 2000);
+      });
+    }
+    this.reachFloor();
   }
 
   public reachFloor(): void {
@@ -157,9 +164,29 @@ export class ElevatorService {
       this.arrived$.next(this.currentFloor$.value);
     }
 
-    setTimeout(() => {
-      this.doorStatus$.next(ElevatorDoor.CLOSED);
-      this.validateRequests();
-    }, 2000);
+    this.speed$.subscribe((speed) => {
+      console.log(speed)
+      switch (speed) {
+        case 0:
+          setTimeout(() => {
+            this.doorStatus$.next(ElevatorDoor.CLOSED);
+            this.validateRequests();
+          }, 4000);
+          break;
+        case 1:
+          setTimeout(() => {
+            this.doorStatus$.next(ElevatorDoor.CLOSED);
+            this.validateRequests();
+          }, 10000);
+          break;
+        case 2:
+          setTimeout(() => {
+            this.doorStatus$.next(ElevatorDoor.CLOSED);
+            this.validateRequests();
+          }, 1000);
+          break;
+      }
+    });
+    this.speed$.next(ElevatorSpeed.NORMAL);
   }
 }

@@ -6,7 +6,6 @@ export enum ElevatorDirection {
 export enum ElevatorDoor {
 	CLOSED = 'CLOSED',
 	OPENED = 'OPENED',
-	STALLED = 'STALLED'
 }
 
 export enum ElevatorState {
@@ -18,4 +17,10 @@ export enum ElevatorState {
 export enum ElevatorCallOrigin {
 	FLOOR = 0,
 	CONTROLLER = 1
+}
+
+export enum ElevatorSpeed {
+	NORMAL = 0,
+	SLOWDOWN = 1,
+	SPEEDUP = 2
 }

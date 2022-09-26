@@ -1,0 +1,12 @@
+<section class="building">
+	<div class="floors">
+		<app-floor *ngFor="
+				let floor of elevatorService.floors;
+				let i = index;
+				first as isFirst;
+				last as isLast;
+			" [floorNumber]="i + 1" [firstFloor]="isFirst" [lastFloor]="isLast">
+		</app-floor>
+	</div>
+	<app-elevator></app-elevator>
+</section>

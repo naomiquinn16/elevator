@@ -1,0 +1,15 @@
+.building {
+	height: 100%;
+	width: 100%;
+	position: relative;
+	border-bottom: 1px solid #222222;
+
+	.floors {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		display: flex;
+		flex-direction: column-reverse;
+		width: 66%;
+	}
+}

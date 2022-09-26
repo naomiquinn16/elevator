@@ -1,0 +1,30 @@
+<section class="controller">
+  <div class="screen">
+    <span class="material-icons" *ngIf="elevatorService.elevatorStatus$.value === 1" >
+      {{ elevatorService.movementDirection$.value === "DOWN" ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}	  
+    </span>
+    <label>
+      {{ elevatorService.currentFloor$.value }}
+    </label>
+  </div>
+  <div class="controls">
+    <button class="button" (click)="stallElevator()">
+      <span class="material-icons icon">unfold_more</span>
+    </button>
+    <button class="button">
+		<span class="material-icons icon">unfold_less</span>
+    </button>
+    <button
+      *ngFor="let floor of elevatorService.floors; let i = index"
+      (click)="addFloorToQueue(i + 1)"
+	    [ngClass]="getActiveClass(i+1)"
+    >
+      {{ i + 1 }}
+    </button>
+  </div>
+  <div class="ringer-container">
+    <button [ngClass]="elevatorService.elevatorStatus$.value === 2? 'ringer active' : 'ringer'" (click)="toggleAlarm()">
+      <span class="material-icons">notifications</span>
+    </button>
+  </div>
+</section>

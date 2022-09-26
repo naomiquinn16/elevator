@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+	font-family: "Roboto", sans-serif;
+}
+
+body {
+	margin: 24px;
+}
+
+button {
+	cursor: pointer;
+	outline: 0;
+}

@@ -1,0 +1,49 @@
+.floor {
+	display: flex;
+	height: var(--floor-height);
+
+
+	.buttons,
+	.level {
+		width: 50%;
+		height: 100%;
+	}
+
+	.buttons {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		.button {
+			width: 48px;
+			height: 48px;
+			border-radius: 50%;
+			border: 1px solid black;
+			background-color: white;
+			font-weight: 600;
+			margin: 2px 0;
+		
+			&.active {
+				border: 2px turquoise solid;
+			}
+			
+			&:hover {
+				background-color: #b5b5b5;
+			}
+		}
+	}
+
+	.level {
+		background-color: #cfcfcf;
+		border-left: var(--border);
+		border-right: var(--border);
+		border-top: var(--border);
+		box-sizing: border-box;
+	}
+}
+
+.active {
+	border: 2px turquoise solid;
+
+}

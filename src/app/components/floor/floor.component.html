@@ -1,0 +1,15 @@
+<section class="floor">
+	<div class="buttons">
+		<ng-container *ngIf="!lastFloor">
+			<button #up [ngClass]="isUpActive ? 'button active' : 'button'" (click)="callElevatorUp($event)">
+				<span class="material-icons">arrow_drop_up</span>
+			</button>
+		</ng-container>
+		<ng-container *ngIf="!firstFloor">
+			<button #down [ngClass]="isDownActive ? 'button active' : 'button'" (click)="callElevatorDown($event)">
+				<span class="material-icons">arrow_drop_down</span>
+			</button>
+		</ng-container>
+	</div>
+	<div class="level"></div>
+</section>

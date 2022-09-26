@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ControllerComponent } from './components/controller/controller.component';
+import { ElevatorComponent } from './components/elevator/elevator.component';
+import { BuildingComponent } from './components/building/building.component';
+import { FloorComponent } from './components/floor/floor.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ControllerComponent,
+    ElevatorComponent,
+    BuildingComponent,
+    FloorComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

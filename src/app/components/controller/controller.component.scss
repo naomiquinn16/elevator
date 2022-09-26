@@ -1,0 +1,76 @@
+.controller {
+  width: 106px;
+  padding: 18px;
+  border-radius: 2px;
+  background-color: #e5e5e5;
+  background: url(https://media.istockphoto.com/photos/metal-texture-background-picture-id695750612?k=20&m=695750612&s=612x612&w=0&h=tofFpO9a-T5oKnBT6iNrOasGOQ715lHgkGR_B_BndPk=);
+  border: var(--border);
+
+  .screen {
+    width: 100%;
+    margin: 0 auto 12px;
+    border-radius: 4px;
+    background-color: #262626;
+    text-align: center;
+    height: 16px;
+    padding: 6px 0;
+    color: #f00;
+    line-height: 16px;
+
+    & > span {
+      margin-right: 8px;
+      font-size: 10px;
+    }
+
+    & > label {
+      font-size: 12px;
+    }
+  }
+
+  .controls {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap-reverse;
+
+    .button {
+      width: 36px;
+      height: 36px;
+      margin: 8px;
+      border: 0;
+      background-color: #fff;
+      transition: background-color 0.15s ease-in-out;
+      font-weight: 600;
+      border-radius: 100%;
+     
+      .icon {
+        transform: rotate(90deg);
+      }
+      &.active {
+        border: 2px turquoise solid;
+      }
+      &:hover {
+        background-color: #b5b5b5;
+      }
+    }  
+  }
+  .ringer-container {
+    display: flex;
+    justify-content: center;
+    .ringer {
+      width: 36px;
+      height: 36px;
+      margin: 8px;
+      border: 0;
+      background-color: #fff;
+      transition: background-color 0.15s ease-in-out;
+      font-weight: 600;
+      border-radius: 100%;
+      &.active {
+        background-color: turquoise;
+      }
+  
+    }
+  }
+}
+
+

@@ -1,0 +1,76 @@
+.overview {
+  // Define reusable variables
+  --border: 1px solid #222222;
+  --floor-height: 130px;
+  --elevator-width: 44px;
+  --elevator-height: calc(var(--floor-height) / 2);
+  width: 100%;
+  display: flex;
+
+  .controller,
+  .building {
+    height: 512px;
+  }
+  .controller {
+    width: 25%;
+  }
+  .building {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .overview {
+    flex-wrap: wrap;
+
+    .controller {
+      width: 35%;
+    }
+
+    .building {
+      width: 65%;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .overview {
+    flex-wrap: wrap;
+
+    .controller {
+      width: 25%;
+    }
+
+    .building {
+      width: 75%;
+    }
+  }
+}
+
+@media only screen and (max-width: 565px) {
+  .overview {
+    flex-direction: row-reverse;
+
+    .controller {
+      width: 35%;
+    }
+    .building {
+      width: 65%;
+      height: 512px;
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .overview {
+    flex-direction: row-reverse;
+
+    .controller {
+      display: none;
+    }
+    .building {
+      height: 512px;
+      width: 100%;
+    }
+  }
+}

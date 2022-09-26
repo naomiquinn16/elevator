@@ -34,7 +34,7 @@ export class FloorComponent {
       // state = 0 means the lift has stopped fully
       this.elevatorService.elevatorStatus$.subscribe((state) => {
         if (
-          state === 0 &&
+          state === ElevatorState.STOPPED &&
           !this.elevatorService.pendingRequests.some(
             (el) => el.floor === this.floorNumber
           )

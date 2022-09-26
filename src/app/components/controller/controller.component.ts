@@ -45,7 +45,7 @@ export class ControllerComponent {
       alert('Elevator cannot move, ring the bell again to resume movement!')
     } else {
       this.elevatorService.elevatorStatus$.next(ElevatorState.STOPPED);
-      this.elevatorService.validateRequests()
+      this.elevatorService.checkCalls()
     }
 	}
 

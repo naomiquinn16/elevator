@@ -31,14 +31,9 @@ export class FloorComponent {
         this.isUpActive = true;
       }
 
-      // state = 0 means the lift has stopped fully
-      this.elevatorService.elevatorStatus$.subscribe((state) => {
-        if (
-          state === ElevatorState.STOPPED &&
-          !this.elevatorService.pendingRequests.some(
-            (el) => el.floor === this.floorNumber
-          )
-        ) {
+      this.elevatorService.arrived$.subscribe((floor) => {
+        if (floor === this.floorNumber)
+        {
           if (direction === 'down') {
             this.isDownActive = false;
           } else {

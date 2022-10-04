@@ -4,6 +4,7 @@
 	width: var(--elevator-width);
 	display: block;
 	background-color: #767676;
+	// --floors is determined by amount of floors defined in the service
 	height: calc(var(--elevator-height) * calc(var(--floors) * 2));
 	bottom: calc(var(--elevator-height) * -1);
 	.elevator {
@@ -16,6 +17,8 @@
 		display: flex;
 		position: absolute;
 		contain: content;
+
+		// Floor level variable changes each time and transition applied to move elevator Xpx from top
 		top: calc(100% - calc(var(--elevator-height) * 2 * var(--floor-level)));
 		transition: top 1s ease-in-out;
 	

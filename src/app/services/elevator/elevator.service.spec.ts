@@ -101,7 +101,7 @@ describe('ElevatorService', () => {
 		let checkCallsSpy: jasmine.Spy;
 
     beforeEach(() => {
-			checkCallsSpy = spyOn(service, 'checkCalls');
+			checkCallsSpy = spyOn(service, 'checkNextCall');
 		});
 
     it('should call canAddNewCall', () => {

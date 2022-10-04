@@ -15,6 +15,7 @@ export class ControllerComponent {
     public elevatorService: ElevatorService
   ) { }
 
+  // Can add floor request to queue so long as user is not on the floor already or if they are, they door is closed
   addFloorToQueue(floor: number): void {
 		if (
 			this.elevatorService.currentFloor$.value !== floor
@@ -24,6 +25,7 @@ export class ControllerComponent {
 		}
 	}
 
+  // Open door button only works if state is stopped
   openDoors() {
     if(this.elevatorService.elevatorStatus$.value === ElevatorState.STOPPED) {
       this.elevatorService.doorStatus$.next(ElevatorDoor.OPENED);
@@ -31,6 +33,7 @@ export class ControllerComponent {
     }
   }
 
+  // Close door button only works if state is stopped
   closeDoors() {
     if(this.elevatorService.elevatorStatus$.value === ElevatorState.STOPPED) {
       this.elevatorService.doorStatus$.next(ElevatorDoor.CLOSED);
@@ -38,6 +41,8 @@ export class ControllerComponent {
     }
   }
 
+  // If elevator is not paused, ring error alarm, pause it, show alert
+  // If elevator is paused, change state to stopped, create a new instance of the abort controller, check the next call
   toggleAlarm(): void {
     if(!this.elevatorService.isElevatorPaused()) {
       this.musicService.playError();
@@ -45,10 +50,12 @@ export class ControllerComponent {
       alert('Elevator cannot move, ring the bell again to resume movement!')
     } else {
       this.elevatorService.elevatorStatus$.next(ElevatorState.STOPPED);
-      this.elevatorService.checkCalls()
+      this.elevatorService.controller = new AbortController();
+      this.elevatorService.checkNextCall()
     }
 	}
 
+  // Add/remove active class if the floor number exists/doesnt exist in the queue
   getActiveClass(i: number): string {
     return this.elevatorService.pendingRequests.some(call => call.floor === i) ? 'button active' : 'button';
   }
